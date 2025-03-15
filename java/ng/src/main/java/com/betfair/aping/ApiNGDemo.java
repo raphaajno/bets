@@ -50,7 +50,7 @@ public class ApiNGDemo {
             if(jsonOrRescript.equalsIgnoreCase("json-rpc")){
                 jsonRpcRequest=true;
             } else if(jsonOrRescript.equalsIgnoreCase("rescript")){
-                jsonRpcRequest=false;
+                jsonRpcRequest=true;
             }
 
         } else {
