@@ -42,7 +42,7 @@ public class ApiNGJsonRpcDemo {
             time.setFrom(new Date());
 
             Set<String> countries = new HashSet<>();
-            countries.add("GB");
+            countries.add("BR");
 
             Set<String> typesCode = new HashSet<>();
             typesCode.add("MATCH_ODDS");
