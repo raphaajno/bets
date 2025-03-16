@@ -31,7 +31,7 @@ public class ApiNGDemo {
         }
     }
 
-    public static void main(String[] args) throws APINGException {
+    public static void main(String[] args) throws APINGException, IOException {
 
         System.out.println("Welcome to the Betfair API NG!");
 
