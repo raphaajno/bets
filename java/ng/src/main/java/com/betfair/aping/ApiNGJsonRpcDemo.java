@@ -140,7 +140,7 @@ public class ApiNGJsonRpcDemo {
     // Função modificada para listar runners
     private void printMarketCatalogue(MarketCatalogue mk) {
         String marketName = translateMarketName(mk.getMarketName());
-        System.out.println("    Nome do Mercado: " + marketName + "; Id: " + mk.getMarketId());
+        System.out.println("    Nome do Mercado: '" + marketName + "'; Id: " + mk.getMarketId());
         List<RunnerCatalog> runners = mk.getRunners();
         if (runners != null && !runners.isEmpty()) {
             for (RunnerCatalog rCat : runners) {
