@@ -35,6 +35,28 @@ static {
     marketTranslations.put("Half Time", "Intervalo");
 }
 
+private static final Map<String, String> runnerTranslations = new HashMap<>();
+
+static {
+    runnerTranslations.put("Under 2.5 Goals", "Menos de 2.5 Gols");
+    runnerTranslations.put("Over 2.5 Goals", "Mais de 2.5 Gols");
+    runnerTranslations.put("Under 0.5 Goals", "Menos de 0.5 Gols");
+    runnerTranslations.put("Over 0.5 Goals", "Mais de 0.5 Gols");
+    runnerTranslations.put("Under 1.5 Goals", "Menos de 1.5 Gols");
+    runnerTranslations.put("Over 1.5 Goals", "Mais de 1.5 Gols");
+    runnerTranslations.put("Under 3.5 Goals", "Menos de 3.5 Gols");
+    runnerTranslations.put("Over 3.5 Goals", "Mais de 3.5 Gols");
+    runnerTranslations.put("Under 4.5 Goals", "Menos de 4.5 Gols");
+    runnerTranslations.put("Over 4.5 Goals", "Mais de 4.5 Gols");
+    runnerTranslations.put("Under 5.5 Goals", "Menos de 5.5 Gols");
+    runnerTranslations.put("Over 5.5 Goals", "Mais de 5.5 Gols");
+    runnerTranslations.put("The Draw", "Empate");
+    runnerTranslations.put("Yes", "Sim");
+    runnerTranslations.put("No", "Não");
+    runnerTranslations.put("Home or Draw", "Casa ou Empate");
+    runnerTranslations.put("Draw or Away", "Empate ou Visitante");
+    runnerTranslations.put("Home or Away", "Casa ou Visitante");
+}
 
     private ApiNgOperations jsonOperations = ApiNgJsonRpcOperations.getInstance();
     private String applicationKey;
@@ -130,7 +152,9 @@ static {
     List<RunnerCatalog> runners = mk.getRunners();
     if (runners != null && !runners.isEmpty()) {
         for (RunnerCatalog rCat : runners) {
-            System.out.println("      Corredor: " + rCat.getRunnerName() + "; Handicap: " + rCat.getHandicap() + "; Seleção: " + rCat.getSelectionId());
+           String translatedRunnerName = runnerTranslations.getOrDefault(rCat.getRunnerName(), rCat.getRunnerName());
+
+            System.out.println("      Corredor: " + translatedRunnerName + "; Handicap: " + rCat.getHandicap() + "; Seleção: " + rCat.getSelectionId());
         }
     } else {
         System.out.println("      Nenhum corredor disponível.");
