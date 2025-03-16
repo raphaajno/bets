@@ -15,7 +15,7 @@ public class ApiNGJsonRpcDemo {
     private String applicationKey;
     private String sessionToken;
 
-    public void start(String appKey, String ssoid) {
+    public void start(String appKey, String ssoid) throws APINGException {
         this.applicationKey = appKey;
         this.sessionToken = ssoid;
 
@@ -66,26 +66,44 @@ public class ApiNGJsonRpcDemo {
             System.out.println("Listing Soccer Matches...");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
+// Usando um Map para agrupar por evento (partida)
+            Map<String, List<MarketCatalogue>> eventMarkets = new HashMap<>();
+
+// Agrupa todos os mercados por evento (partida)
             for (MarketCatalogue market : marketCatalogueResult) {
-                System.out.println("Match: " + market.getEvent().getName() + 
-                        " | Market: " + market.getMarketName() +
-                        " | Start Time: " + dateFormat.format(market.getEvent().getOpenDate()) +
-                        " | Market Id: " + market.getMarketId());
-                printMarketCatalogue(market);
+                String eventName = market.getEvent().getName();
+                eventMarkets.computeIfAbsent(eventName, k -> new ArrayList<>()).add(market);
             }
 
-        } catch (APINGException apiExc) {
-            apiExc.printStackTrace();
+// Agora, percorre cada evento e lista todos os seus mercados e runners
+            for (Map.Entry<String, List<MarketCatalogue>> entry : eventMarkets.entrySet()) {
+                System.out.println("Match: " + entry.getKey());
+
+                for (MarketCatalogue market : entry.getValue()) {
+                    System.out.println("  Market: " + market.getMarketName()
+                            + " | Start Time: " + dateFormat.format(market.getEvent().getOpenDate())
+                            + " | Market Id: " + market.getMarketId());
+
+                    printMarketCatalogue(market);
+                }
+            }
+        }
+        catch(APINGException e)
+        {
         }
     }
 
+// Função modificada para listar runners certinho
     private void printMarketCatalogue(MarketCatalogue mk) {
-        System.out.println("Market Name: " + mk.getMarketName() + "; Id: " + mk.getMarketId());
+        System.out.println("    Market Name: " + mk.getMarketName() + "; Id: " + mk.getMarketId());
         List<RunnerCatalog> runners = mk.getRunners();
-        if (runners != null) {
+        if (runners != null && !runners.isEmpty()) {
             for (RunnerCatalog rCat : runners) {
-                System.out.println("Runner Name: " + rCat.getRunnerName()+ "; Selection Id: " + rCat.getSelectionId());
+                System.out.println("      Runner Name: " + rCat.getRunnerName() + "; Selection Id: " + rCat.getSelectionId());
             }
+        } else {
+            System.out.println("      No runners available.");
         }
     }
-} 
+
+}
