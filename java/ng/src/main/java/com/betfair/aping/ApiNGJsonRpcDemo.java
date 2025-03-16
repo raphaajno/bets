@@ -6,6 +6,7 @@ import com.betfair.aping.entities.*;
 import com.betfair.aping.enums.*;
 import com.betfair.aping.exceptions.APINGException;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ApiNGJsonRpcDemo {
@@ -54,6 +55,7 @@ public class ApiNGJsonRpcDemo {
 
             Set<MarketProjection> marketProjection = new HashSet<>();
             marketProjection.add(MarketProjection.RUNNER_DESCRIPTION);
+            marketProjection.add(MarketProjection.EVENT);
 
             String maxResults = "10";
 
@@ -61,9 +63,13 @@ public class ApiNGJsonRpcDemo {
                     marketFilter, marketProjection, MarketSort.FIRST_TO_START, maxResults, applicationKey, sessionToken
             );
 
-            System.out.println("Listing Soccer Markets...");
+            System.out.println("Listing Soccer Matches...");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
             for (MarketCatalogue market : marketCatalogueResult) {
-                System.out.println("Market Name: " + market.getMarketName() + " | Market Id: " + market.getMarketId());
+                System.out.println("Match: " + market.getEvent().getName() + 
+                        " | Market: " + market.getMarketName() +
+                        " | Market Id: " + market.getMarketId());
                 printMarketCatalogue(market);
             }
 
@@ -81,4 +87,4 @@ public class ApiNGJsonRpcDemo {
             }
         }
     }
-}
+} 
