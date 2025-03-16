@@ -1,5 +1,6 @@
 package com.betfair.aping;
 
+import com.betfair.aping.exceptions.APINGException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +31,7 @@ public class ApiNGDemo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws APINGException {
 
         System.out.println("Welcome to the Betfair API NG!");
 

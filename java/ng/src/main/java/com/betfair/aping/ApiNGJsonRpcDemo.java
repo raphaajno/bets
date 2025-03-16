@@ -90,7 +90,7 @@ public class ApiNGJsonRpcDemo {
         }
         catch (APINGException e) {
     System.err.println("API Exception: " + e.getMessage());
-    e.printStackTrace(); // Mostra o stack trace pra diagnóstico
+            // Mostra o stack trace pra diagnóstico
 }
 
     }
