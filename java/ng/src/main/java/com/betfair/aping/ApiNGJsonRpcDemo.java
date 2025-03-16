@@ -8,6 +8,9 @@ import com.betfair.aping.exceptions.APINGException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -20,11 +23,15 @@ public class ApiNGJsonRpcDemo {
     private ResourceBundle bundle;
 
     // Construtor para definir o locale e carregar a tradução
-   public ApiNGJsonRpcDemo() {
+   public ApiNGJsonRpcDemo() throws UnsupportedEncodingException, IOException {
         try {
-            Locale locale = new Locale("pt", "BR");
-            bundle = ResourceBundle.getBundle("messages", locale);
-            System.out.println("Bundle carregado com sucesso: " + locale);
+            // Usando InputStreamReader com codificação UTF-8
+            Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("messages_pt_BR.properties"), "UTF-8");
+
+            // Carregando o ResourceBundle usando o PropertyResourceBundle
+            bundle = new PropertyResourceBundle(reader);
+            
+            System.out.println("Bundle carregado com sucesso: pt_BR");
         } catch (MissingResourceException e) {
             System.err.println("Erro ao carregar bundle: " + e.getMessage());
         }
