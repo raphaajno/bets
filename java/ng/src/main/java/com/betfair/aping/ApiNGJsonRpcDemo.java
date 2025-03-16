@@ -14,9 +14,6 @@ public class ApiNGJsonRpcDemo {
     private ApiNgOperations jsonOperations = ApiNgJsonRpcOperations.getInstance();
     private String applicationKey;
     private String sessionToken;
-    private ResourceBundle bundle;
-    Locale locale = new Locale("pt", "BR");
-    bundle = ResourceBundle.getBundle("messages", locale);
 
     public void start(String appKey, String ssoid) throws APINGException {
         this.applicationKey = appKey;
