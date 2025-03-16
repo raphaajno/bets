@@ -24,19 +24,23 @@ public class ApiNGJsonRpcDemo {
 
     // Construtor para definir o locale e carregar a tradução
    public ApiNGJsonRpcDemo() throws UnsupportedEncodingException, IOException {
-        try {
-            // Usando InputStreamReader com codificação UTF-8
-            Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("messages_pt_BR.properties"), "UTF-8");
+         try {
+            // Controla a leitura do bundle com codificação UTF-8
+            ResourceBundle.Control control = new ResourceBundle.Control() {
+                public Reader newReader(java.util.Locale locale, String baseName, ClassLoader classLoader) throws java.io.IOException {
+                    InputStreamReader reader = new InputStreamReader(classLoader.getResourceAsStream(baseName + ".properties"), "UTF-8");
+                    return reader;
+                }
+            };
 
-            // Carregando o ResourceBundle usando o PropertyResourceBundle
-            bundle = new PropertyResourceBundle(reader);
-            
+            // Usando o controle customizado para carregar o bundle
+            bundle = ResourceBundle.getBundle("messages", Locale.forLanguageTag("pt-BR"), control);
+
             System.out.println("Bundle carregado com sucesso: pt_BR");
-        } catch (MissingResourceException e) {
+        } catch (Exception e) {
             System.err.println("Erro ao carregar bundle: " + e.getMessage());
         }
     }
-
     public void start(String appKey, String ssoid) throws APINGException, IOException {
         this.applicationKey = appKey;
         this.sessionToken = ssoid;
