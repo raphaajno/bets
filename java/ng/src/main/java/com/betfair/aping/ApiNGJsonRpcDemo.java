@@ -17,9 +17,14 @@ public class ApiNGJsonRpcDemo {
     private ResourceBundle bundle;
 
     // Construtor para definir o locale e carregar a tradução
-    public ApiNGJsonRpcDemo() {
-        Locale locale = new Locale("pt", "BR");
-        bundle = ResourceBundle.getBundle("messages", locale);
+   public ApiNGJsonRpcDemo() {
+        try {
+            Locale locale = new Locale("pt", "BR");
+            bundle = ResourceBundle.getBundle("messages", locale);
+            System.out.println("Bundle carregado com sucesso: " + locale);
+        } catch (MissingResourceException e) {
+            System.err.println("Erro ao carregar bundle: " + e.getMessage());
+        }
     }
 
     public void start(String appKey, String ssoid) throws APINGException {
