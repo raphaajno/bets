@@ -88,9 +88,11 @@ public class ApiNGJsonRpcDemo {
                 }
             }
         }
-        catch(APINGException e)
-        {
-        }
+        catch (APINGException e) {
+    System.err.println("API Exception: " + e.getMessage());
+    e.printStackTrace(); // Mostra o stack trace pra diagnóstico
+}
+
     }
 
 // Função modificada para listar runners certinho
