@@ -14,8 +14,8 @@ import java.util.Properties;
 public class ApiNGDemo {
 
     private static Properties prop = new Properties();
-    private static String applicationKey;
-    private static String sessionToken;
+    private static String applicationKey = "L6usTYsnqWawE0Vu";
+    private static String sessionToken = "xStU2HTUZTfnaIMIKym9qofVwXMgzdHYrKBBCK7k5s4=";
     private static boolean debug;
 
     static {
