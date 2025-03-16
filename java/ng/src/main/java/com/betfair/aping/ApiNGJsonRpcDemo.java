@@ -50,7 +50,7 @@ public class ApiNGJsonRpcDemo {
 
             marketFilter.setEventTypeIds(eventTypeIds);
             marketFilter.setMarketStartTime(time);
-            marketFilter.setMarketCountries(countries);
+          //  marketFilter.setMarketCountries(countries);
             marketFilter.setMarketTypeCodes(typesCode);
 
             Set<MarketProjection> marketProjection = new HashSet<>();
