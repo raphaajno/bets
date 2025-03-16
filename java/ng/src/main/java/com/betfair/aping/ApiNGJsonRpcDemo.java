@@ -101,7 +101,7 @@ public class ApiNGJsonRpcDemo {
         List<RunnerCatalog> runners = mk.getRunners();
         if (runners != null && !runners.isEmpty()) {
             for (RunnerCatalog rCat : runners) {
-                System.out.println("      Runner Name: " + rCat.getRunnerName() + "; Handcap: " + rCat.getHandicap() + "; Selection: " + rCat.getSelectionId());
+               // System.out.println("      Runner Name: " + rCat.getRunnerName() + "; Handcap: " + rCat.getHandicap() + "; Selection: " + rCat.getSelectionId());
             }
         } else {
             System.out.println("      No runners available.");
