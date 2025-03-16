@@ -5,6 +5,9 @@ import com.betfair.aping.api.ApiNgOperations;
 import com.betfair.aping.entities.*;
 import com.betfair.aping.enums.*;
 import com.betfair.aping.exceptions.APINGException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -27,14 +30,18 @@ public class ApiNGJsonRpcDemo {
         }
     }
 
-    public void start(String appKey, String ssoid) throws APINGException {
+    public void start(String appKey, String ssoid) throws APINGException, IOException {
         this.applicationKey = appKey;
         this.sessionToken = ssoid;
 
         try {
             MarketFilter marketFilter = new MarketFilter();
             Set<String> eventTypeIds = new HashSet<>();
-
+            
+            // Exemplo de como gerar o arquivo
+            FileWriter fileWriter = new FileWriter("mercados.txt");
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+            
             System.out.println("1. Obtendo o Event Type Id para Futebol...");
             List<EventTypeResult> eventTypeResults = jsonOperations.listEventTypes(marketFilter, applicationKey, sessionToken);
 
@@ -73,6 +80,18 @@ public class ApiNGJsonRpcDemo {
             List<MarketCatalogue> marketCatalogueResult = jsonOperations.listMarketCatalogue(
                     marketFilter, marketProjection, MarketSort.FIRST_TO_START, maxResults, applicationKey, sessionToken
             );
+            
+             // Escreve os nomes dos mercados no arquivo
+            System.out.println("Gerando lista de mercados...");
+            for (MarketCatalogue market : marketCatalogueResult) {
+                String marketName = market.getMarketName();
+                writer.write(marketName);
+                writer.newLine();  // Nova linha para cada nome de mercado
+            }
+
+            // Fecha o arquivo depois de escrever
+            writer.close();
+            System.out.println("Arquivo 'mercados.txt' gerado com sucesso!");
 
             System.out.println("Listando Partidas de Futebol...");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
