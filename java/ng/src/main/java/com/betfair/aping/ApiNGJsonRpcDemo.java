@@ -69,8 +69,9 @@ public class ApiNGJsonRpcDemo {
             for (MarketCatalogue market : marketCatalogueResult) {
                 System.out.println("Match: " + market.getEvent().getName() + 
                         " | Market: " + market.getMarketName() +
+                        " | Start Time: " + dateFormat.format(market.getEvent().getOpenDate()) +
                         " | Market Id: " + market.getMarketId());
-                printMarketCatalogue(market);
+                //printMarketCatalogue(market);
             }
 
         } catch (APINGException apiExc) {
