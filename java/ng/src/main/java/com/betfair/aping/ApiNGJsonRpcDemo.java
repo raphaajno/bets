@@ -5,9 +5,6 @@ import com.betfair.aping.api.ApiNgOperations;
 import com.betfair.aping.entities.*;
 import com.betfair.aping.enums.*;
 import com.betfair.aping.exceptions.APINGException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -18,43 +15,30 @@ public class ApiNGJsonRpcDemo {
     private String applicationKey;
     private String sessionToken;
     private ResourceBundle bundle;
+    Locale locale = new Locale("pt", "BR");
+    bundle = ResourceBundle.getBundle("messages", locale);
 
-    // Construtor para definir o locale e carregar a tradução
-   public ApiNGJsonRpcDemo() {
-        try {
-            Locale locale = new Locale("pt", "BR");
-            bundle = ResourceBundle.getBundle("messages", locale);
-            System.out.println("Bundle carregado com sucesso: " + locale);
-        } catch (MissingResourceException e) {
-            System.err.println("Erro ao carregar bundle: " + e.getMessage());
-        }
-    }
-
-    public void start(String appKey, String ssoid) throws APINGException, IOException {
+    public void start(String appKey, String ssoid) throws APINGException {
         this.applicationKey = appKey;
         this.sessionToken = ssoid;
 
         try {
             MarketFilter marketFilter = new MarketFilter();
             Set<String> eventTypeIds = new HashSet<>();
-            
-            // Exemplo de como gerar o arquivo
-            FileWriter fileWriter = new FileWriter("mercados.txt");
-            BufferedWriter writer = new BufferedWriter(fileWriter);
-            
-            System.out.println("1. Obtendo o Event Type Id para Futebol...");
+
+            System.out.println("1. Getting Event Type Id for Soccer...");
             List<EventTypeResult> eventTypeResults = jsonOperations.listEventTypes(marketFilter, applicationKey, sessionToken);
 
             for (EventTypeResult eventTypeResult : eventTypeResults) {
                 if (eventTypeResult.getEventType().getName().equalsIgnoreCase("Soccer")) {
-                    System.out.println("EventTypeId de Futebol encontrado: " + eventTypeResult.getEventType().getId());
+                    System.out.println("Soccer EventTypeId found: " + eventTypeResult.getEventType().getId());
                     eventTypeIds.add(eventTypeResult.getEventType().getId().toString());
-                    break;
+                    break; // Found Soccer, no need to continue
                 }
             }
 
             if (eventTypeIds.isEmpty()) {
-                System.out.println("Tipo de evento Futebol não encontrado!");
+                System.out.println("Soccer event type not found!");
                 return;
             }
 
@@ -81,75 +65,50 @@ public class ApiNGJsonRpcDemo {
             List<MarketCatalogue> marketCatalogueResult = jsonOperations.listMarketCatalogue(
                     marketFilter, marketProjection, MarketSort.FIRST_TO_START, maxResults, applicationKey, sessionToken
             );
-            
-             // Escreve os nomes dos mercados no arquivo
-            System.out.println("Gerando lista de mercados...");
-            for (MarketCatalogue market : marketCatalogueResult) {
-                String marketName = market.getMarketName();
-                writer.write(marketName);
-                writer.newLine();  // Nova linha para cada nome de mercado
-            }
 
-            // Fecha o arquivo depois de escrever
-            writer.close();
-            System.out.println("Arquivo 'mercados.txt' gerado com sucesso!");
-
-            System.out.println("Listando Partidas de Futebol...");
+            System.out.println("Listing Soccer Matches...");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-            // Usando um Map para agrupar por evento (partida)
+// Usando um Map para agrupar por evento (partida)
             Map<String, List<MarketCatalogue>> eventMarkets = new HashMap<>();
 
-            // Agrupa todos os mercados por evento (partida)
+// Agrupa todos os mercados por evento (partida)
             for (MarketCatalogue market : marketCatalogueResult) {
                 String eventName = market.getEvent().getName();
                 eventMarkets.computeIfAbsent(eventName, k -> new ArrayList<>()).add(market);
             }
 
-            // Agora percorre cada evento e lista todos os seus mercados e runners
+// Agora, percorre cada evento e lista todos os seus mercados e runners
             for (Map.Entry<String, List<MarketCatalogue>> entry : eventMarkets.entrySet()) {
-                System.out.println("Partida: " + entry.getKey());
+                System.out.println("Match: " + entry.getKey());
 
                 for (MarketCatalogue market : entry.getValue()) {
-                    // Aplica a tradução do nome do mercado
-                    String marketName = translateMarketName(market.getMarketName());
-
-                    System.out.println("  Mercado: " + marketName
-                            + " | Início: " + dateFormat.format(market.getEvent().getOpenDate())
+                    System.out.println("  Market: " + market.getMarketName()
+                            + " | Start Time: " + dateFormat.format(market.getEvent().getOpenDate())
                             + " | Market Id: " + market.getMarketId());
 
                     printMarketCatalogue(market);
                 }
             }
-        } catch (APINGException e) {
-            System.err.println("Erro na API: " + e.getMessage());
         }
+        catch (APINGException e) {
+    System.err.println("API Exception: " + e.getMessage());
+            // Mostra o stack trace pra diagnóstico
+}
+
     }
 
-    // Função modificada para listar runners
+// Função modificada para listar runners certinho
     private void printMarketCatalogue(MarketCatalogue mk) {
-        String marketName = translateMarketName(mk.getMarketName());
-        System.out.println("    Nome do Mercado: " + marketName + "; Id: " + mk.getMarketId());
+        System.out.println("    Market Name: " + mk.getMarketName() + "; Id: " + mk.getMarketId());
         List<RunnerCatalog> runners = mk.getRunners();
         if (runners != null && !runners.isEmpty()) {
             for (RunnerCatalog rCat : runners) {
-                System.out.println("      Nome do Runner: " + rCat.getRunnerName() + "; Handicap: " + rCat.getHandicap() + "; Seleção: " + rCat.getSelectionId());
+               // System.out.println("      Runner Name: " + rCat.getRunnerName() + "; Handcap: " + rCat.getHandicap() + "; Selection: " + rCat.getSelectionId());
             }
         } else {
-            System.out.println("      Nenhum runner disponível.");
+            System.out.println("      No runners available.");
         }
     }
-
-    // Método para traduzir o nome do mercado usando o ResourceBundle
-    private String translateMarketName(String marketName) {
-    try {
-        String translatedName = bundle.getString(marketName);
-        System.out.println("Traduzido: " + translatedName);  // Adicione um print para verificar a tradução
-        return translatedName;
-    } catch (MissingResourceException e) {
-        System.err.println("Erro na tradução do mercado: " + marketName);
-        return marketName;  // Retorna o nome original se não houver tradução
-    }
-}
 
 }
