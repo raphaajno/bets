@@ -123,9 +123,9 @@ public class ApiNGJsonRpcDemo {
 
                 for (MarketCatalogue market : entry.getValue()) {
                     // Aplica a tradução do nome do mercado
-                    String marketName = translateMarketName(market.getMarketName());
+                    //String marketName = translateMarketName(market.getMarketName());
 
-                    System.out.println("  Mercado: " + marketName
+                    System.out.println("  Mercado: " + market.getMarketName()
                             + " | Início: " + dateFormat.format(market.getEvent().getOpenDate())
                             + " | Market Id: " + market.getMarketId());
 
