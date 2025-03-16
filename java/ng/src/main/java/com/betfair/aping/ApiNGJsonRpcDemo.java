@@ -141,10 +141,14 @@ public class ApiNGJsonRpcDemo {
 
     // Método para traduzir o nome do mercado usando o ResourceBundle
     private String translateMarketName(String marketName) {
-        try {
-            return bundle.getString(marketName);
-        } catch (MissingResourceException e) {
-            return marketName; // Se não encontrar tradução, retorna o nome original
-        }
+    try {
+        String translatedName = bundle.getString(marketName);
+        System.out.println("Traduzido: " + translatedName);  // Adicione um print para verificar a tradução
+        return translatedName;
+    } catch (MissingResourceException e) {
+        System.err.println("Erro na tradução do mercado: " + marketName);
+        return marketName;  // Retorna o nome original se não houver tradução
     }
+}
+
 }
