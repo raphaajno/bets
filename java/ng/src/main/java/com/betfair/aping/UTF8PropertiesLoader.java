@@ -9,7 +9,7 @@ public class UTF8PropertiesLoader {
     public static ResourceBundle loadBundle(String baseName, Locale locale) {
         try {
             // Usamos a instância da classe para obter o getResourceAsStream
-            String fileName = baseName + "_" + locale.getLanguage() + "_BR.properties";
+            String fileName ="messages_pt_BR.properties";
             InputStream inputStream = UTF8PropertiesLoader.class.getResourceAsStream(fileName);
             if (inputStream == null) {
                 throw new FileNotFoundException("Arquivo de propriedades não encontrado: " + fileName);
