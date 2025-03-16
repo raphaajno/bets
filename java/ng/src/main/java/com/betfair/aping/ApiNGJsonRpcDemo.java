@@ -50,7 +50,7 @@ public class ApiNGJsonRpcDemo {
 
             marketFilter.setEventTypeIds(eventTypeIds);
             marketFilter.setMarketStartTime(time);
-          //  marketFilter.setMarketCountries(countries);
+            marketFilter.setMarketCountries(countries);
             marketFilter.setMarketTypeCodes(typesCode);
 
             Set<MarketProjection> marketProjection = new HashSet<>();
@@ -71,7 +71,7 @@ public class ApiNGJsonRpcDemo {
                         " | Market: " + market.getMarketName() +
                         " | Start Time: " + dateFormat.format(market.getEvent().getOpenDate()) +
                         " | Market Id: " + market.getMarketId());
-                //printMarketCatalogue(market);
+                printMarketCatalogue(market);
             }
 
         } catch (APINGException apiExc) {
@@ -84,7 +84,7 @@ public class ApiNGJsonRpcDemo {
         List<RunnerCatalog> runners = mk.getRunners();
         if (runners != null) {
             for (RunnerCatalog rCat : runners) {
-                System.out.println("Runner Name: " + rCat.getRunnerName() + "; Selection Id: " + rCat.getSelectionId());
+                System.out.println("Runner Name: " + rCat.getRunnerName()+ "; Selection Id: " + rCat.getSelectionId());
             }
         }
     }
