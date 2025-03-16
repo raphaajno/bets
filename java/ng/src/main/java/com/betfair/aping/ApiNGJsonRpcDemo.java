@@ -33,6 +33,23 @@ static {
     marketTranslations.put("First Half Goals 0.5", "Gols no Primeiro Tempo 0.5");
     marketTranslations.put("First Half Goals 2.5", "Gols no Primeiro Tempo 2.5");
     marketTranslations.put("Half Time", "Intervalo");
+    marketTranslations.put("Over/Under 4.5 Goals", "Mais/Menos de 4.5 Gols");
+marketTranslations.put("Over/Under 5.5 Goals", "Mais/Menos de 5.5 Gols");
+marketTranslations.put("Over/Under 6.5 Goals", "Mais/Menos de 6.5 Gols");
+marketTranslations.put("Over/Under 7.5 Goals", "Mais/Menos de 7.5 Gols");
+marketTranslations.put("Over/Under 8.5 Goals", "Mais/Menos de 8.5 Gols");
+marketTranslations.put("First Half Goals 1.5", "Gols no Primeiro Tempo 1.5");
+marketTranslations.put("First Half Goals 2.5", "Gols no Primeiro Tempo 2.5");
+marketTranslations.put("First Half Goals 0.5", "Gols no Primeiro Tempo 0.5");
+marketTranslations.put("Match Odds", "Probabilidades da Partida");
+marketTranslations.put("Correct Score", "Placar Exato");
+marketTranslations.put("Draw no Bet", "Empate Anula Aposta");
+marketTranslations.put("Double Chance", "Chance Dupla");
+marketTranslations.put("Half Time Score", "Placar do Primeiro Tempo");
+marketTranslations.put("Half Time/Full Time", "Resultado Intervalo/Final");
+marketTranslations.put("Half Time", "Intervalo");
+marketTranslations.put("Goal Lines", "Linhas de Gol");
+
 }
 
 private static final Map<String, String> runnerTranslations = new HashMap<>();
@@ -56,6 +73,27 @@ static {
     runnerTranslations.put("Home or Draw", "Casa ou Empate");
     runnerTranslations.put("Draw or Away", "Empate ou Visitante");
     runnerTranslations.put("Home or Away", "Casa ou Visitante");
+    runnerTranslations.put("Under 4.5 Goals", "Menos de 4.5 Gols");
+runnerTranslations.put("Over 4.5 Goals", "Mais de 4.5 Gols");
+runnerTranslations.put("Under 5.5 Goals", "Menos de 5.5 Gols");
+runnerTranslations.put("Over 5.5 Goals", "Mais de 5.5 Gols");
+runnerTranslations.put("Under 6.5 Goals", "Menos de 6.5 Gols");
+runnerTranslations.put("Over 6.5 Goals", "Mais de 6.5 Gols");
+runnerTranslations.put("Under 7.5 Goals", "Menos de 7.5 Gols");
+runnerTranslations.put("Over 7.5 Goals", "Mais de 7.5 Gols");
+runnerTranslations.put("Under 8.5 Goals", "Menos de 8.5 Gols");
+runnerTranslations.put("Over 8.5 Goals", "Mais de 8.5 Gols");
+runnerTranslations.put("Draw", "Empate");
+runnerTranslations.put("Any Other Home Win", "Qualquer Outra Vitória do Mandante");
+runnerTranslations.put("Any Other Away Win", "Qualquer Outra Vitória do Visitante");
+runnerTranslations.put("Any Other Draw", "Qualquer Outro Empate");
+runnerTranslations.put("Any unquoted", "Outro Não Cotado");
+runnerTranslations.put("Home or Draw", "Casa ou Empate");
+runnerTranslations.put("Draw or Away", "Empate ou Visitante");
+runnerTranslations.put("Home or Away", "Casa ou Visitante");
+runnerTranslations.put("Yes", "Sim");
+runnerTranslations.put("No", "Não");
+
 }
 
     private ApiNgOperations jsonOperations = ApiNgJsonRpcOperations.getInstance();
