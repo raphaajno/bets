@@ -165,9 +165,9 @@ runnerTranslations.put("No", "Não");
                 System.out.println("Match: " + entry.getKey());
 
                 for (MarketCatalogue market : entry.getValue()) {
-                    System.out.println("  Market: " + market.getMarketName()
-                            + " | Start Time: " + dateFormat.format(market.getEvent().getOpenDate())
-                            + " | Market Id: " + market.getMarketId());
+                   // System.out.println("  Market: " + market.getMarketName()
+                     //       + " | Start Time: " + dateFormat.format(market.getEvent().getOpenDate())
+                       //     + " | Market Id: " + market.getMarketId());
 
                     printMarketCatalogue(market);
                 }
