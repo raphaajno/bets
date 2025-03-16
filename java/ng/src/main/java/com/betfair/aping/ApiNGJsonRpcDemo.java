@@ -8,8 +8,33 @@ import com.betfair.aping.exceptions.APINGException;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ApiNGJsonRpcDemo {
+    
+
+
+private static final Map<String, String> marketTranslations = new HashMap<>();
+
+static {
+    marketTranslations.put("Over/Under 2.5 Goals", "Mais/Menos de 2.5 Gols");
+    marketTranslations.put("Asian Handicap", "Handicap Asiático");
+    marketTranslations.put("Goal Lines", "Linhas de Gol");
+    marketTranslations.put("Correct Score", "Placar Exato");
+    marketTranslations.put("Over/Under 0.5 Goals", "Mais/Menos de 0.5 Gols");
+    marketTranslations.put("Match Odds", "Probabilidades da Partida");
+    marketTranslations.put("Both teams to Score?", "Ambos os Times Marcam?");
+    marketTranslations.put("Draw no Bet", "Empate Anula Aposta");
+    marketTranslations.put("Half Time Score", "Placar do Primeiro Tempo");
+    marketTranslations.put("Half Time/Full Time", "Resultado Intervalo/Final");
+    marketTranslations.put("Double Chance", "Chance Dupla");
+    marketTranslations.put("First Half Goals 1.5", "Gols no Primeiro Tempo 1.5");
+    marketTranslations.put("First Half Goals 0.5", "Gols no Primeiro Tempo 0.5");
+    marketTranslations.put("First Half Goals 2.5", "Gols no Primeiro Tempo 2.5");
+    marketTranslations.put("Half Time", "Intervalo");
+}
+
 
     private ApiNgOperations jsonOperations = ApiNgJsonRpcOperations.getInstance();
     private String applicationKey;
@@ -97,15 +122,20 @@ public class ApiNGJsonRpcDemo {
 
 // Função modificada para listar runners certinho
     private void printMarketCatalogue(MarketCatalogue mk) {
-        System.out.println("    Market Name: " + mk.getMarketName() + "; Id: " + mk.getMarketId());
-        List<RunnerCatalog> runners = mk.getRunners();
-        if (runners != null && !runners.isEmpty()) {
-            for (RunnerCatalog rCat : runners) {
-               // System.out.println("      Runner Name: " + rCat.getRunnerName() + "; Handcap: " + rCat.getHandicap() + "; Selection: " + rCat.getSelectionId());
-            }
-        } else {
-            System.out.println("      No runners available.");
+    // Traduz o nome do mercado, se houver tradução disponível
+    String translatedMarketName = marketTranslations.getOrDefault(mk.getMarketName(), mk.getMarketName());
+
+    System.out.println("    Nome do Mercado: " + translatedMarketName + "; Id: " + mk.getMarketId());
+
+    List<RunnerCatalog> runners = mk.getRunners();
+    if (runners != null && !runners.isEmpty()) {
+        for (RunnerCatalog rCat : runners) {
+            System.out.println("      Corredor: " + rCat.getRunnerName() + "; Handicap: " + rCat.getHandicap() + "; Seleção: " + rCat.getSelectionId());
         }
+    } else {
+        System.out.println("      Nenhum corredor disponível.");
     }
+}
+
 
 }
