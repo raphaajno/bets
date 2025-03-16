@@ -57,7 +57,7 @@ public class ApiNGJsonRpcDemo {
             marketProjection.add(MarketProjection.RUNNER_DESCRIPTION);
             marketProjection.add(MarketProjection.EVENT);
 
-            String maxResults = "10";
+            String maxResults = "1000";
 
             List<MarketCatalogue> marketCatalogueResult = jsonOperations.listMarketCatalogue(
                     marketFilter, marketProjection, MarketSort.FIRST_TO_START, maxResults, applicationKey, sessionToken
