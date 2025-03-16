@@ -21,14 +21,23 @@ public class ApiNGJsonRpcDemo {
 
     // Construtor para definir o locale e carregar a tradução
    public ApiNGJsonRpcDemo() {
-        try {
+       try {
+            // Criando uma instância do UTF8PropertiesLoader
+            UTF8PropertiesLoader loader = new UTF8PropertiesLoader();
             Locale locale = new Locale("pt", "BR");
-            bundle = ResourceBundle.getBundle("messages", locale);
-            System.out.println("Bundle carregado com sucesso: " + locale);
-        } catch (MissingResourceException e) {
+
+            // Carregando o bundle com UTF-8
+            bundle = loader.loadBundle("messages", locale);
+            if (bundle != null) {
+                System.out.println("Bundle carregado com sucesso: " + locale);
+            } else {
+                System.out.println("Erro ao carregar o bundle.");
+            }
+        } catch (Exception e) {
             System.err.println("Erro ao carregar bundle: " + e.getMessage());
         }
     }
+    
 
     public void start(String appKey, String ssoid) throws APINGException, IOException {
         this.applicationKey = appKey;
