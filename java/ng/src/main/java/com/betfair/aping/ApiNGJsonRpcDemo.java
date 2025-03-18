@@ -100,9 +100,9 @@ runnerTranslations.put("No", "Não");
     private String applicationKey;
     private String sessionToken;
 
-    public void start(String appKey, String ssoid) throws APINGException {
-        this.applicationKey = appKey;
-        this.sessionToken = ssoid;
+    public void start(String appKey, String ssoid,String jogo) throws APINGException {
+        this.applicationKey = "L6usTYsnqWawE0Vu";
+        this.sessionToken = "xStU2HTUZTfnaIMIKym9qofVwXMgzdHYrKBBCK7k5s4=";
 
         try {
             MarketFilter marketFilter = new MarketFilter();
@@ -135,14 +135,15 @@ runnerTranslations.put("No", "Não");
 
             marketFilter.setEventTypeIds(eventTypeIds);
             marketFilter.setMarketStartTime(time);
-            marketFilter.setMarketCountries(countries);
+            //marketFilter.setMarketCountries(countries);
             //marketFilter.setMarketTypeCodes(typesCode);
+            marketFilter.setTextQuery(jogo);
 
             Set<MarketProjection> marketProjection = new HashSet<>();
             marketProjection.add(MarketProjection.RUNNER_DESCRIPTION);
             marketProjection.add(MarketProjection.EVENT);
 
-            String maxResults = "1000";
+            String maxResults = "10000";
 
             List<MarketCatalogue> marketCatalogueResult = jsonOperations.listMarketCatalogue(
                     marketFilter, marketProjection, MarketSort.FIRST_TO_START, maxResults, applicationKey, sessionToken
