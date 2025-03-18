@@ -63,7 +63,7 @@ public class ApiNGDemo {
         // Always run JSON-RPC demo
         System.out.println("Running JSON-RPC demo...");
         ApiNGJsonRpcDemo jsonRpcDemo = new ApiNGJsonRpcDemo();
-        jsonRpcDemo.start(applicationKey, sessionToken);
+        jsonRpcDemo.start(applicationKey, sessionToken,"");
     }
 
     public static Properties getProp() {
